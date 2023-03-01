@@ -9,7 +9,7 @@ class Dog {
     constructor(id, name) {
         this.id = id;
         this.name = name;
-        this.member = [];
+        this.members = [];
     }
  //to add a member
     addMember(member) {
@@ -27,6 +27,7 @@ let dogId = 0;
  //this will create a new value everytime it got clicked
 onClick('new-dog', () =>{
     dogs.push(new Dog(dogId++, getValue('new-dog-name')));
+    console.log (dogs)
     drawDOM();
 });
  //instead of write code each time it will callback an action to pass on the Id
@@ -39,18 +40,20 @@ function onClick(id, action) {
 function getValue(id) {
     return document.getElementById(id).value;
 }
- //this is to add or conect the div from the html
+ //this is to add or connect the div from the html
 function drawDOM() {
     let dogDiv = document.getElementById('dogs');
     clearElement(dogDiv);
-    for (Dog of dogs) {
+    for (let dog of dogs) {
         let table = createDogTable(Dog);
         let title = document.createElement('h2');
         title.innerHTML = Dog.name;
         title.appendChild(createDeleteDogButton(Dog));
         dogDiv.appendChild(title);
         dogDiv.appendChild(table);
-        for (member of dog.members) {
+        for (let member of dog.members) {
+            console.log (member)
+            console.log (dog.members)
             createMemberRow(dog, table, member);
         } 
     }
@@ -93,7 +96,9 @@ function createNewMemberButton(dog) {
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Create';
     btn.onclick = () => {
-        dog.members. push(new Member(getValue(`name-input-${dog.id}`), getValue(`breed-input-${dog.id}`)));
+        console.log ("test")
+        dog.members.push(new Member(getValue(`name-input-${dog.id}`), getValue(`breed-input-${dog.id}`)));
+        console.log (dog.members)
         drawDOM();
     };
     return btn;
